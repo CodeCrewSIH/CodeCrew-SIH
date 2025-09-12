@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home|Sparro</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="auth.css" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+    xintegrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=my_location" />
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=my_location" />
+  
+  <!-- This style block is necessary for the profile dropdown to work -->
+  <style>
+    .profile-dropdown { position: relative; display: inline-block; }
+    .profile-icon { cursor: pointer; width: 40px; height: 40px; border-radius: 50%; background-color: #6c63ff; color: white; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 18px; border: 2px solid white; }
+    .dropdown-content { display: none; position: absolute; right: 0; background-color: white; min-width: 200px; box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); z-index: 100; border-radius: 8px; }
+    .dropdown-content .user-email { padding: 12px 16px; border-bottom: 1px solid #eee; color: #555; font-size: 14px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;}
+    .dropdown-content button { color: #d9534f; padding: 12px 16px; text-decoration: none; display: block; width: 100%; text-align: left; background: none; border: none; cursor: pointer; }
+    .dropdown-content button:hover { background-color: #f1f1f1; }
+    .profile-dropdown:hover .dropdown-content { display: block; }
+  </style>
+</head>
+
+<body>
+  <div class="head">
+    <header>
+      <div class="logo"><img src="Picsart_25-09-12_13-20-12-572-removebg-preview (1).png" width="190px"></div>
+       <div class="logo"><img src="WhatsApp Image 2025-09-12 at 13.51.25_95978824.jpg"></div>
+      <nav>
+        <!-- I've added an ID here so the script can find the navigation list -->
+        <ul id="nav-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="login.html">Login</a></li>
+          <li><a href="signup.html">Sign Up</a></li>
+        </ul>
+      </nav>
+    </header>
+  </div>
+  
+  <!-- The rest of your teammate's page content is unchanged -->
+  <div class="search">
+    <div class="search1">
+      <h2>Request For A Delivery</h2>
+      <p> Up to 50% off your first 5 Sparro rides. T&Cs apply.*</p>
+      <p>*Valid within 15 days of signup. </p>
+      <form class="form" action="#">
+        <div><input type="text" name="username" placeholder="Enter Location"></div>
+        <div><input type="text" name="username" placeholder="Enter Destination"></div>
+      </form>
+      <button type="button" class="btn btn-dark">See Prices</button>
+      <button type="button" class="btn btn-outline-secondary">Schedule For Later</button>
+    </div>
+    <div class="search2">
+      <img src="navi.jpg">
+    </div>
+  </div>
+  <div class="smallcard">
+    <h1>Suggestion</h1>
+    <div class="suggestion">
+      <div class="codei">
+        <div class="content">
+          <h3>Truck</h1>
+            <p>6-8 Tons</p>
+            <button type="button" class="btn btn-outline-primary">BOOK NOW!</button>
+        </div>
+        <div class="image">
+          <img src="truck.jpg">
+        </div>
+      </div>
+      <div class="codei">
+        <div class="content">
+          <h3>PickUp</h1>
+            <p>1.5-2 tons</p>
+            <button type="button" class="btn btn-outline-primary">BOOK NOW!</button>
+        </div>
+        <div class="image">
+          <img src="pickup.jpg">
+        </div>
+      </div>
+      <div class="codei">
+        <div class="content">
+          <h3>MiniTruck</h1>
+            <p>4-5 tons.</p>
+            <button type="button" class="btn btn-outline-primary">BOOK NOW!</button>
+        </div>
+        <div class="image">
+          <img src="minitruck.jpg">
+        </div>
+      </div>
+      <div class="codei">
+        <div class="content">
+          <h3>Plane</h1>
+            <p>for long distances</p>
+            <button type="button" class="btn btn-outline-primary">BOOK NOW!</button>
+        </div>
+        <div class="image">
+          <img src="aeroplane.jpg">
+        </div>
+      </div>
+      <div class="codei">
+        <div class="content">
+          <h3>Train</h1>
+            <p>medium to long distances.......</p>
+            <button type="button" class="btn btn-outline-primary">BOOK NOW!</button>
+        </div>
+        <div class="image">
+          <img src="train.jpg">
+        </div>
+      </div>
+      <div class="codei">
+        <div class="content">
+          <h3>Premium</h1>
+            <p>20-25 tons </p>
+            <button type="button" class="btn btn-outline-primary">BOOK NOW!</button>
+        </div>
+        <div class="image">
+          <img src="premiumtruck.jpg">
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="section3">
+    <h1>Use The Sparro To Help You To Transport In Your Way</h1>
+    <div class="cardd">
+      <div class="card" style="width: 18rem;">
+        <img src="shared.jpg" class="card-img-top" alt="...">
+        <div class="card-body">
+          <h3>Shared Delivery</h3>
+          <p class="card-text">Multiple Packages Delivered together to save cost</p>
+          <button type="button" class="btn btn-info"><a href="#">BOOK NOW!</a></button>
+        </div>
+      </div>
+      <div class="card" style="width: 18rem;">
+        <img src="reserved.jpg" class="card-img-top" alt="...">
+        <div class="card-body">
+          <h3>Reserved Delivery</h3>
+          <p class="card-text">Delivery at a pre choosen time or date.</p>
+          <button type="button" class="btn btn-info"><a href="#">BOOK NOW!</a></button>
+        </div>
+      </div>
+      <div class="card" style="width: 18rem;">
+        <img src="express.jpg" class="card-img-top" alt="...">
+        <div class="card-body">
+          <h3>Express Delivery</h3>
+          <p class="card-text">Fast Shipping Guaranteed With in 24-48 Hours.</p>
+          <button type="button" class="btn btn-info"><a href="#">BOOK NOW!</a></button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="lastsection">
+    <div class="footer">
+      <div class="list1">
+        <img src="logo.png" width="190px">
+        <p><a href="https://en.wikipedia.org/wiki/I_%E2%80%93_Proud_to_Be_an_Indian">#Proud to be an Indians</a></p>
+      </div>
+      <div class="list2">
+        <ul>
+          <li><a class="e2" href="#">Transportation</a></li>
+          <li><a class="e2" href="#">Logistics</a></li>
+          <li><a class="e2" href="#">Commercials</a></li>
+          <li><a class="e2" href="#">feedback</a></li>
+          <li><a class="e2" href="#">rating</a></li>
+          <li><a class="e2" href="#">customer care</a></li>
+        </ul>
+      </div>
+      <div class="list3">
+        <ul>
+          <li><a class="e2" href="#">Help</a></li>
+          <li><a class="e2" href="#">Contact</a></li>
+          <li><a class="e2" href="#">Support</a></li>
+          <li><a class="e2" href="#">Feedback</a></li>
+          <li><a class="e2" href="#">Rating</a></li>
+          <li><a class="e2" href="#">Customer Care</a></li>
+        </ul>
+      </div>
+      <div class="list4">
+        <ul>
+          <li><a class="e2" href="#">Transportation</a></li>
+          <li><a class="e2" href="#">Logistics</a></li>
+          <li><a class="e2" href="#">Commercials</a></li>
+          <li><a class="e2" href="#">feedback</a></li>
+          <li><a class="e2" href="#">rating</a></li>
+          <li><a class="e2" href="#">customer care</a></li>
+        </ul>
+      </div>
+      <div class="list5">
+        <ul>
+          <li><a class="e2" href="#">Help</a></li>
+          <li><a class="e2" href="#">Contact</a></li>
+          <li><a class="e2" href="#">Support</a></li>
+          <li><a class="e2" href="#">Feedback</a></li>
+          <li><a class="e2" href="#">Rating</a></li>
+          <li><a class="e2" href="#">Customer Care</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="copy">
+      <a href="#">&copy; 2025 Sparro. All rights reserved.</a>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+    xintegrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+    crossorigin="anonymous"></script>
+    
+  <!-- This script handles the dynamic login/logout display -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const navLinksContainer = document.getElementById('nav-links');
+        const token = localStorage.getItem('authToken');
+
+        if (token) {
+            try {
+                // Decode the JWT to get user info
+                const payload = JSON.parse(atob(token.split('.')[1]));
+                const userInitial = payload.displayName ? payload.displayName.charAt(0).toUpperCase() : (payload.email ? payload.email.charAt(0).toUpperCase() : '?');
+                const userEmail = payload.email || 'User email not found';
+
+                // User is logged in, show profile icon
+                navLinksContainer.innerHTML = `
+                    <li><a href="index.html">Home</a></li>
+                    <li class="profile-dropdown">
+                        <div class="profile-icon" title="${userEmail}">${userInitial}</div>
+                        <div class="dropdown-content">
+                            <div class="user-email">${userEmail}</div>
+                            <button id="logout-btn">Logout</button>
+                        </div>
+                    </li>
+                `;
+
+                // Add functionality to the new logout button
+                const logoutButton = document.getElementById('logout-btn');
+                logoutButton.addEventListener('click', () => {
+                    localStorage.removeItem('authToken');
+                    window.location.reload(); // Reload to update the nav
+                });
+            } catch (e) {
+                console.error('Failed to decode token:', e);
+                localStorage.removeItem('authToken'); // Clear the invalid token
+            }
+        }
+    });
+  </script>
+</body>
+</html>
+

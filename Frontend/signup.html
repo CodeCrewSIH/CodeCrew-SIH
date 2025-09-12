@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sign Up - Port Karo</title>
+  <link rel="stylesheet" href="style.css"/>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="auth.css" />
+    <!-- This style block is for the Google Button -->
+  <style>
+    .google-btn { display: flex; align-items: center; justify-content: center; gap: 10px; padding: 12px; background-color: #ffffff; color: #333; border-radius: 8px; text-decoration: none; font-weight: 500; border: 1px solid #ddd; transition: background-color 0.3s; margin-top: 10px; }
+    .google-btn:hover { background-color: #f7f7f7; }
+    .google-btn img { width: 20px; height: 20px; }
+    .divider { text-align: center; margin: 20px 0; color: #aaa; }
+  </style>
+</head>
+<body>
+    <header>
+    <div class="logo"><img src="Picsart_25-09-12_13-20-12-572-removebg-preview (1).png" width="190px"></div>
+   <div class="logo"><img src="WhatsApp Image 2025-09-12 at 13.51.25_95978824.jpg"></div>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="login.html">Login</a></li>
+        <li><a href="signup.html">Sign Up</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="auth-container">
+    <div class="auth-card">
+      <h2>Create an Account</h2>
+      <!-- An ID is added to the form so the script can find it -->
+      <form id="signup-form">
+        <label for="fullname">Full Name</label>
+        <input type="text" id="fullname" placeholder="John Doe" required />
+
+        <!-- The label is changed to "Email" to match what the backend expects -->
+        <label for="emailphone">Email</label>
+        <input type="email" id="emailphone" placeholder="Enter your email" required />
+
+        <!-- The OTP section has been removed as it's not supported by our backend -->
+
+        <label for="password">Set Password</label>
+        <input type="password" id="password" placeholder="Create a password" required />
+
+        <button type="submit" class="cta-button full-width">Sign Up</button>
+      </form>
+      <div class="divider">or</div>
+      <a href="http://localhost:5000/api/auth/google" class="google-btn">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" alt="Google icon">
+        <span>Sign Up with Google</span>
+      </a>
+      <p class="switch-auth">Already have an account? <a href="login.html">Login here</a></p>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Sparro. All rights reserved.</p>
+  </footer>
+
+  <!-- This script makes the form functional -->
+  <script>
+    const signupForm = document.getElementById('signup-form');
+    signupForm.addEventListener('submit', async (event) => {
+        event.preventDefault(); // Prevents the page from refreshing
+        const displayName = document.getElementById('fullname').value;
+        const email = document.getElementById('emailphone').value;
+        const password = document.getElementById('password').value;
+
+        try {
+            const response = await fetch('http://localhost:5000/api/auth/register', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ displayName, email, password })
+            });
+
+            const result = await response.json();
+            if (!response.ok) {
+                alert('Signup Failed: ' + result.msg);
+                return;
+            }
+
+            // On success, save the token and redirect to the home page
+            localStorage.setItem('authToken', result.token);
+            window.location.href = '/index.html';
+            
+        } catch (error) {
+            console.error('Signup error:', error);
+            alert('An error occurred during signup.');
+        }
+    });
+  </script>
+</body>
+</html>
+
