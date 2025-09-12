@@ -48,7 +48,7 @@
         <button type="submit" class="cta-button full-width">Sign Up</button>
       </form>
       <div class="divider">or</div>
-      <a href="http://localhost:5000/api/auth/google" class="google-btn">
+      <a href="https://codecrew-sparro.onrender.com/api/auth/google" ... class="google-btn">
         <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" alt="Google icon">
         <span>Sign Up with Google</span>
       </a>
@@ -70,7 +70,7 @@
         const password = document.getElementById('password').value;
 
         try {
-            const response = await fetch('http://localhost:5000/api/auth/register', {
+            const response = await fetch('https://codecrew-sparro.onrender.com/api/auth/register', ... {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ displayName, email, password })
