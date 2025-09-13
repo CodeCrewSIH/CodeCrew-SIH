@@ -6,35 +6,6 @@
 
 }
 
-/* 
-.section1 {
-    padding-right: 40px;
-    padding: 0px;
-    top: 0px;
-    display: flex;
-    margin: 0px;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: nowrap;
-    flex-direction: row;
-    color: aliceblue;
-    background-color: rgb(64, 126, 202);
-}
-
-.logo img {
-    width: 200px;
-}
-*/
-/* .section2 {
-    height: 900px;
-    width: 100%;
-}
-
-.section2 img {
-    height: 800px;
-    width: 100%;
-}  */
-
 .items {
     padding-right: 43px;
   
@@ -62,22 +33,7 @@
     /* color: azure;
     background-color: rgba(0,0,0,.5); */
 }
-/* html,
-body {
-    background-image: url(image3.jpg);
-    background-attachment: fixed;
-    background-color: blanchedalmond;
-    
 
-} */
-/* 
-.scroll {
-    margin: 3px 0px;
-    padding: 0px 120px 0px 120px;
-    min-height: 50%;
-min-width: 50%;
-margin-bottom: 30px;
-} */
  .search{
    display: flex;
    justify-content: space-evenly;
@@ -89,6 +45,12 @@ margin-bottom: 30px;
     margin-top: 20px;
     margin-bottom: 50px;
 }
+@media (width <=1140px) {
+    .search{
+        flex-wrap: wrap;
+    }
+}
+
  
 
 .search1{
@@ -115,6 +77,14 @@ margin-bottom: 30px;
     height: 600px;
     width: 600px;
 }
+@media (width <=636px) {
+    .search2 img{
+    height: 300px;
+    width: 300px;
+    box-sizing: border-box;
+}
+}
+
 .cardd {
     margin: 40px 50px;
 
@@ -144,6 +114,18 @@ padding-bottom: 40px;
     height: 70px;
     width: 100px;
 }
+.logo1 img{
+    height: 70px;
+    width: 100px;
+}
+@media (width <=636px) {
+    .logo1 img{
+    height: 0px;
+    width: 0px;
+}
+}
+
+
 
 .codei {
     /* background-color: aliceblue; */
@@ -154,6 +136,8 @@ padding-bottom: 40px;
     width: 400px;
     border-radius: 9px;
     box-shadow: 3px 5px 7px rgb(114, 114, 145);
+    justify-content: space-between;
+    align-items: center;
 }
 .codei:hover{
      box-shadow: 4px 5px 9px rgb(114, 114, 145);
@@ -197,6 +181,11 @@ padding-bottom: 40px;
     color: #ffffff;
     display: flex;
 }
+@media (width <=1140px) {
+    .footer{
+        flex-wrap: wrap;
+    }
+}
 
 .list2 ul,
 .list3 ul,
@@ -226,10 +215,6 @@ padding-bottom: 40px;
     color: #e1e1e1b7; 
 }
 
-/* .cardbody button a{
-    text-decoration: none;
-    color: #0e3453;
-    } */
     .btn a {
         text-decoration: none;
         color: #000000b7;
