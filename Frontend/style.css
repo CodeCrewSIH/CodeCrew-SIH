@@ -56,6 +56,13 @@
 .search1{
     padding: 100px;
 }
+@media (width <=1140px) {
+    .search1{
+        padding: 0px;
+        margin-bottom: 50px;
+    }
+}
+
 .search1 h2{
     margin-top: 20px;
     font-size: 50px;
