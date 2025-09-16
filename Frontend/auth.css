@@ -93,4 +93,9 @@
 .switch-auth a:hover {
   text-decoration: underline;
 }
-
+@media (width <=636px) {
+    .logo1 img{
+    height: 0px;
+    width: 0px;
+}
+}
