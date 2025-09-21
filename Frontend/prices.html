@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculate Price | Sparro</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="auth.css" />
+    <style>
+        .pricing-card { max-width: 700px; margin: 40px auto; }
+        .result-item { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #eee; }
+        .result-item strong { color: #2c3e50; }
+        #final-price { font-size: 28px; font-weight: bold; color: #6c63ff; text-align: center; margin-top: 20px; }
+        .truck-options { display: flex; gap: 15px; margin-top: 20px; justify-content: center; flex-wrap: wrap;}
+        .truck-option { border: 2px solid #ddd; border-radius: 8px; padding: 15px; cursor: pointer; transition: all 0.2s; text-align: center; }
+        .truck-option.selected { border-color: #6c63ff; background-color: #f0efff; transform: scale(1.05); }
+        .truck-option img { width: 80px; height: auto; margin-bottom: 10px; }
+        #loading-state p { text-align: center; font-size: 18px; padding: 40px 0; }
+    </style>
+</head>
+<body>
+    <header>
+      <div class="logo"><img src="Picsart_25-09-12_13-20-12-572-removebg-preview (1).png" width="190px"></div>
+       <div class="logo"><img src="WhatsApp Image 2025-09-12 at 13.51.25_95978824.jpg"></div>
+      <nav>
+        <ul id="nav-links">
+          <li><a href="index.html">Home</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="auth-container">
+        <div class="auth-card pricing-card">
+            <h2>Estimate Your Fare</h2>
+            <div id="loading-state">
+                <p>Calculating distance, please wait...</p>
+            </div>
+            <div id="pricing-details" style="display: none;">
+                <div class="result-item"><span>From:</span> <strong id="start-location"></strong></div>
+                <div class="result-item"><span>To:</span> <strong id="end-location"></strong></div>
+                <div class="result-item"><span>Distance:</span> <strong id="distance"></strong></div>
+                <hr>
+                <label for="weight-input">Enter Package Weight (in kg)</label>
+                <input type="number" id="weight-input" placeholder="e.g., 50" required class="auth-card input" />
+
+                <label style="margin-top: 20px;">Select Vehicle Type</label>
+                <div class="truck-options">
+                    <div class="truck-option" data-truck="pickup">
+                        <img src="pickup.jpg" alt="Pickup">
+                        <div>Pickup</div>
+                    </div>
+                    <div class="truck-option" data-truck="minitruck">
+                        <img src="minitruck.jpg" alt="Mini Truck">
+                        <div>Mini Truck</div>
+                    </div>
+                     <div class="truck-option" data-truck="truck">
+                        <img src="truck.jpg" alt="Truck">
+                        <div>Truck</div>
+                    </div>
+                </div>
+
+                <div id="final-price-container" style="display: none;">
+                    <p style="text-align: center; margin-top: 20px;">Estimated Total Price:</p>
+                    <div id="final-price">₹0</div>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <script>
+        // This function now makes a REAL call to our backend API
+        async function getDistanceFromBackend(startPlaceId, endPlaceId) {
+            // NOTE: For local testing, change this URL to 'http://localhost:5000'.
+            const backendUrl = 'https://codecrew-sparro.onrender.com'; 
+            
+            const response = await fetch(`${backendUrl}/api/calculate-distance`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ startPlaceId, endPlaceId })
+            });
+
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(errorData.msg || 'Failed to calculate distance');
+            }
+            
+            return response.json();
+        }
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            const startPlaceId = localStorage.getItem('startPlaceId');
+            const startPlaceName = localStorage.getItem('startPlaceName');
+            const endPlaceId = localStorage.getItem('endPlaceId');
+            const endPlaceName = localStorage.getItem('endPlaceName');
+
+            if (!startPlaceId || !endPlaceId) {
+                alert("Location data not found. Please go back and select locations.");
+                window.location.href = 'index.html';
+                return;
+            }
+
+            document.getElementById('start-location').textContent = startPlaceName;
+            document.getElementById('end-location').textContent = endPlaceName;
+
+            try {
+                // This call now gets the REAL distance from your backend
+                const response = await getDistanceFromBackend(startPlaceId, endPlaceId);
+                document.getElementById('distance').textContent = response.distance;
+
+                document.getElementById('loading-state').style.display = 'none';
+                document.getElementById('pricing-details').style.display = 'block';
+
+                const weightInput = document.getElementById('weight-input');
+                const finalPriceEl = document.getElementById('final-price');
+                const finalPriceContainer = document.getElementById('final-price-container');
+                const truckOptions = document.querySelectorAll('.truck-option');
+                let selectedTruck = null;
+
+                function calculatePrice() {
+                    if (!selectedTruck) return;
+
+                    // Remove "km" and commas to get a number for calculation
+                    const distanceKm = parseFloat(response.distance.replace(/,/g, ''));
+                    const weightKg = parseFloat(weightInput.value);
+
+                    if (isNaN(distanceKm) || isNaN(weightKg) || weightKg <= 0) {
+                        finalPriceContainer.style.display = 'none';
+                        return;
+                    }
+
+                    let finalPrice = 0;
+                    if (distanceKm < 60 && weightKg <= 100) {
+                        finalPrice = weightKg * 80;
+                    } else {
+                        let basePrice = weightKg * 80;
+                        let extraCharge = (weightKg > 100) ? (weightKg - 100) * 10 : 0;
+                        finalPrice = basePrice + extraCharge;
+                    }
+                    
+                    finalPriceEl.textContent = `₹${finalPrice.toFixed(2)}`;
+                    finalPriceContainer.style.display = 'block';
+                }
+
+                weightInput.addEventListener('input', calculatePrice);
+
+                truckOptions.forEach(option => {
+                    option.addEventListener('click', () => {
+                        truckOptions.forEach(el => el.classList.remove('selected'));
+                        option.classList.add('selected');
+                        selectedTruck = option.dataset.truck;
+                        calculatePrice();
+                    });
+                });
+
+            } catch (error) {
+                console.error("Error fetching distance:", error);
+                document.getElementById('loading-state').innerHTML = `<p style="color: red;">Could not calculate distance. Please try again.</p>`;
+            }
+        });
+    </script>
+</body>
+</html>
+
