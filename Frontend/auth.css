@@ -5,7 +5,7 @@
   justify-content: center;
   align-items: center;
   padding: 60px 20px;
-  background-color: #f9f9f9;
+  
   min-height: 80vh;
 }
 
@@ -93,4 +93,9 @@
 .switch-auth a:hover {
   text-decoration: underline;
 }
-
+@media (width <=636px) {
+    .logo1 img{
+    height: 0px;
+    width: 0px;
+}
+}
