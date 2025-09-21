@@ -133,7 +133,9 @@ padding-bottom: 40px;
 }
 }
 
-
+.form input{
+    padding: 10px;
+}
 
 .codei {
     /* background-color: aliceblue; */
