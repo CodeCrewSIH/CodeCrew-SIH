@@ -177,7 +177,11 @@ width: 77%;
     padding: 40px;
    
 }
-
+@media (width <=636px) {
+    .suggestion{
+   padding: 0px;
+}
+}
 
 
 
