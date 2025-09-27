@@ -182,22 +182,9 @@
                     }
 
                     let finalPrice = 0;
-                    if (distanceKm < 200 && weightKg <= 2000) {
+                    if (distanceKm < 600 && weightKg <= 1000) {
                         finalPrice = weightKg * 8;
-                        
-                } 
-                else if (selectedTruck === 'pickup'){
-                        let baseprice = weight * 12;
-                        let extraCharge = (weightKg > 100) ? (weightKg - 100) * 8 : 0;
-                        finalprice = baseprice + extraCharge;
-                }
-                else if (selectedTruck === 'minitruck'){
-                        let baseprice = weight * 14;
-                        let extraCharge = (weightKg > 100) ? (weightKg - 100) * 8 : 0;
-                        finalprice = baseprice + extraCharge;
-
-                }
-
+                    }
                 else {
                         let basePrice = weightKg * 14;
                         let extraCharge = (weightKg > 100) ? (weightKg - 100) * 10 : 0;
