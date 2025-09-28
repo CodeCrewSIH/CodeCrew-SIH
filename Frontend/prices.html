@@ -1,5 +1,7 @@
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,26 +10,77 @@
     <link rel="stylesheet" href="styles.css" />
     <link rel="stylesheet" href="auth.css" />
     <style>
-        .pricing-card { max-width: 700px; margin: 40px auto; }
-        .result-item { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #eee; }
-        .result-item strong { color: #2c3e50; }
-        #final-price { font-size: 28px; font-weight: bold; color: #6c63ff; text-align: center; margin-top: 20px; }
-        .truck-options { display: flex; gap: 15px; margin-top: 20px; justify-content: center; flex-wrap: wrap;}
-        .truck-option { border: 2px solid #ddd; border-radius: 8px; padding: 15px; cursor: pointer; transition: all 0.2s; text-align: center; }
-        .truck-option.selected { border-color: #6c63ff; background-color: #f0efff; transform: scale(1.05); }
-        .truck-option img { width: 80px; height: auto; margin-bottom: 10px; }
-        #loading-state p { text-align: center; font-size: 18px; padding: 40px 0; }
+        .pricing-card {
+            max-width: 700px;
+            margin: 40px auto;
+        }
+
+        .result-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .result-item strong {
+            color: #2c3e50;
+        }
+
+        #final-price {
+            font-size: 28px;
+            font-weight: bold;
+            color: #6c63ff;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .truck-options {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .truck-option {
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-align: center;
+        }
+
+        .truck-option.selected {
+            border-color: #6c63ff;
+            background-color: #f0efff;
+            transform: scale(1.05);
+        }
+
+        .truck-option img {
+            width: 80px;
+            height: auto;
+            margin-bottom: 10px;
+        }
+
+        #loading-state p {
+            text-align: center;
+            font-size: 18px;
+            padding: 40px 0;
+        }
     </style>
 </head>
+
 <body>
     <header>
-      <div class="logo"><img src="Picsart_25-09-12_13-20-12-572-removebg-preview (1).png" width="190px"></div>
-       <div class="logo"><img src="WhatsApp Image 2025-09-12 at 13.51.25_95978824.jpg"></div>
-      <nav>
-        <ul id="nav-links">
-          <li><a href="index.html">Home</a></li>
-        </ul>
-      </nav>
+        <div class="logo"><img src="./assets/Picsart_25-09-12_13-20-12-572-removebg-preview (1).png" width="190px">
+        </div>
+        <div class="logo"><img src="./assets/WhatsApp Image 2025-09-12 at 13.51.25_95978824.jpg"></div>
+        <nav>
+            <ul id="nav-links">
+                <li><a href="index.html">Home</a></li>
+            </ul>
+        </nav>
     </header>
 
     <main class="auth-container">
@@ -47,15 +100,15 @@
                 <label style="margin-top: 20px;">Select Vehicle Type</label>
                 <div class="truck-options">
                     <div class="truck-option" data-truck="pickup">
-                        <img src="pickup.jpg" alt="Pickup">
+                        <img src="./assets/pickup.jpg" alt="Pickup">
                         <div>Pickup</div>
                     </div>
                     <div class="truck-option" data-truck="minitruck">
-                        <img src="minitruck.jpg" alt="Mini Truck">
+                        <img src="./assets/minitruck.jpg" alt="Mini Truck">
                         <div>Mini Truck</div>
                     </div>
-                     <div class="truck-option" data-truck="truck">
-                        <img src="truck.jpg" alt="Truck">
+                    <div class="truck-option" data-truck="truck">
+                        <img src="./assets/truck.jpg" alt="Truck">
                         <div>Truck</div>
                     </div>
                 </div>
@@ -67,13 +120,13 @@
             </div>
         </div>
     </main>
-    
+
     <script>
         // This function now makes a REAL call to our backend API
         async function getDistanceFromBackend(startPlaceId, endPlaceId) {
             // NOTE: For local testing, change this URL to 'http://localhost:5000'.
-            const backendUrl = 'https://codecrew-sparro.onrender.com'; 
-            
+            const backendUrl = 'https://codecrew-sparro.onrender.com';
+
             const response = await fetch(`${backendUrl}/api/calculate-distance`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -84,7 +137,7 @@
                 const errorData = await response.json();
                 throw new Error(errorData.msg || 'Failed to calculate distance');
             }
-            
+
             return response.json();
         }
 
@@ -130,14 +183,15 @@
                     }
 
                     let finalPrice = 0;
-                    if (distanceKm < 60 && weightKg <= 100) {
-                        finalPrice = weightKg * 80;
-                    } else {
-                        let basePrice = weightKg * 80;
+                    if (distanceKm < 600 && weightKg <= 1000) {
+                        finalPrice = weightKg * 8;
+                    }
+                else {
+                        let basePrice = weightKg * 14;
                         let extraCharge = (weightKg > 100) ? (weightKg - 100) * 10 : 0;
                         finalPrice = basePrice + extraCharge;
                     }
-                    
+
                     finalPriceEl.textContent = `₹${finalPrice.toFixed(2)}`;
                     finalPriceContainer.style.display = 'block';
                 }
@@ -160,4 +214,5 @@
         });
     </script>
 </body>
+
 </html>

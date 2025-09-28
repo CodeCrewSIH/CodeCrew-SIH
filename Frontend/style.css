@@ -132,8 +132,15 @@ padding-bottom: 40px;
     width: 0px;
 }
 }
+@media (width <=636px) {
+    #td{
+width: 77%;
+}
+}
 
-
+.form input{
+    padding: 10px;
+}
 
 .codei {
     /* background-color: aliceblue; */
@@ -170,7 +177,11 @@ padding-bottom: 40px;
     padding: 40px;
    
 }
-
+@media (width <=636px) {
+    .suggestion{
+   padding: 0px;
+}
+}
 
 
 
