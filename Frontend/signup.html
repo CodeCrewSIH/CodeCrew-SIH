@@ -74,6 +74,7 @@
             const password = document.getElementById('password').value;
 
             try {
+                // The 'role' is no longer sent, so the backend will use its default ('shipper')
                 const response = await fetch('https://codecrew-sparro.onrender.com/api/auth/register', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -86,7 +87,7 @@
                     return;
                 }
 
-                // On success, save the token and redirect to the home page
+                // On success, save the token and redirect every user to the home page
                 localStorage.setItem('authToken', result.token);
                 window.location.href = '/index.html';
 
