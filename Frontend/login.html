@@ -1,34 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Login - Sparro</title>
-  <link rel="stylesheet" href="style.css"/>
+  <link rel="stylesheet" href="style.css" />
   <link rel="stylesheet" href="styles.css" />
   <link rel="stylesheet" href="auth.css" />
-  <!-- This style block is for the Google Button and divider -->
+  <!-- This style block is for the Google Button -->
   <style>
-    .google-btn { display: flex; align-items: center; justify-content: center; gap: 10px; padding: 12px; background-color: #ffffff; color: #333; border-radius: 8px; text-decoration: none; font-weight: 500; border: 1px solid #ddd; transition: background-color 0.3s; margin-top: 10px; }
-    .google-btn:hover { background-color: #f7f7f7; }
-    .google-btn img { width: 20px; height: 20px; }
-    .divider { text-align: center; margin: 20px 0; color: #aaa; }
-    .cta-button {
-        background-color: #6c63ff; color: white; padding: 14px 28px; border: none;
-        border-radius: 8px; text-decoration: none; font-weight: bold;
-        transition: background-color 0.3s, transform 0.2s; display: inline-block; cursor: pointer;
+    .google-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 12px;
+      background-color: #ffffff;
+      color: #333;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 500;
+      border: 1px solid #ddd;
+      transition: background-color 0.3s;
+      margin-top: 10px;
     }
-    .cta-button:hover { background-color: #5951e9; transform: translateY(-2px); }
+
+    .google-btn:hover {
+      background-color: #f7f7f7;
+    }
+
+    .google-btn img {
+      width: 20px;
+      height: 20px;
+    }
+
+    .divider {
+      text-align: center;
+      margin: 20px 0;
+      color: #aaa;
+    }
   </style>
 </head>
+
 <body>
   <header>
     <div class="logo"><img src="Picsart_25-09-12_13-20-12-572-removebg-preview (1).png" width="190px"></div>
-    <div class="logo"><img src="WhatsApp Image 2025-09-12 at 13.51.25_95978824.jpg"></div>
+    <div class="logo1"><img src="WhatsApp Image 2025-09-12 at 13.51.25_95978824.jpg"></div>
     <nav>
       <ul>
         <li><a href="index.html">Home</a></li>
-        <li><a href="login.html" class="active">Login</a></li>
+        <li><a href="login.html">Login</a></li>
         <li><a href="signup.html">Sign Up</a></li>
       </ul>
     </nav>
@@ -39,6 +61,7 @@
       <h2>Login</h2>
       <!-- An ID is added to the form so the script can find it -->
       <form id="login-form">
+        <!-- The label is changed to "Email" to match what the backend expects -->
         <label for="emailphone">Email</label>
         <input type="email" id="emailphone" placeholder="Enter your email" required />
 
@@ -48,7 +71,7 @@
         <button type="submit" class="cta-button full-width">Login</button>
       </form>
       <div class="divider">or</div>
-      <a href="https://codecrew-sparro.onrender.com/api/auth/google" class="google-btn">
+      <a href=a href="https://codecrew-sparro.onrender.com/api/auth/google" ... class="google-btn">
         <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" alt="Google icon">
         <span>Login with Google</span>
       </a>
@@ -60,41 +83,37 @@
     <p>&copy; 2025 Sparro. All rights reserved.</p>
   </footer>
 
-  <!-- This script makes the form functional and handles redirection -->
+  <!-- This script makes the form functional -->
   <script>
-    document.addEventListener('DOMContentLoaded', () => {
-        const loginForm = document.getElementById('login-form');
-        loginForm.addEventListener('submit', async (event) => {
-            event.preventDefault(); // This stops the page from refreshing
-            const email = document.getElementById('emailphone').value;
-            const password = document.getElementById('password').value;
+    const loginForm = document.getElementById('login-form');
+    loginForm.addEventListener('submit', async (event) => {
+      event.preventDefault(); // Prevents the page from refreshing
+      const email = document.getElementById('emailphone').value;
+      const password = document.getElementById('password').value;
 
-            try {
-                const response = await fetch('https://codecrew-sparro.onrender.com/api/auth/login', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ email, password })
-                });
-
-                const result = await response.json();
-                if (!response.ok) {
-                    alert('Login Failed: ' + result.msg);
-                    return;
-                }
-                
-                // On success, save the authentication token
-                localStorage.setItem('authToken', result.token);
-                
-                // Redirect to the homepage
-                window.location.href = '/index.html';
-
-            } catch (error) {
-                console.error('Login error:', error);
-                alert('An error occurred during login. Please check the console.');
-            }
+      try {
+        const response = await fetch('https://codecrew-sparro.onrender.com/api/auth/login', ... {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, password })
         });
+
+        const result = await response.json();
+        if (!response.ok) {
+          alert('Login Failed: ' + result.msg);
+          return;
+        }
+
+        // On success, save the token and redirect to the home page
+        localStorage.setItem('authToken', result.token);
+        window.location.href = '/index.html';
+
+      } catch (error) {
+        console.error('Login error:', error);
+        alert('An error occurred during login.');
+      }
     });
   </script>
 </body>
-</html>
 
+</html>
