@@ -151,32 +151,30 @@
     function initAutocomplete() {
       const startInput = document.getElementById('start-location-input');
       const endInput = document.getElementById('end-location-input');
-
       const options = {
         componentRestrictions: { country: "in" },
-        fields: ["place_id", "name", "formatted_address"],
+        fields: ["formatted_address"],
       };
 
       const autocompleteStart = new google.maps.places.Autocomplete(startInput, options);
       const autocompleteEnd = new google.maps.places.Autocomplete(endInput, options);
 
       autocompleteStart.addListener("place_changed", () => {
-        startPlace = autocompleteStart.getPlace();
+        const place = autocompleteStart.getPlace();
+        startPlace = place.formatted_address;
       });
 
       autocompleteEnd.addListener("place_changed", () => {
-        endPlace = autocompleteEnd.getPlace();
+        const place = autocompleteEnd.getPlace();
+        endPlace = place.formatted_address;
       });
     }
 
     document.getElementById('see-prices-btn').addEventListener('click', () => {
       if (startPlace && endPlace) {
-        // Save both the name and the unique Place ID for the backend
-        localStorage.setItem('startPlaceName', startPlace.formatted_address || startPlace.name);
-        localStorage.setItem('endPlaceName', endPlace.formatted_address || endPlace.name);
-        
-        // Redirect to the prices page
-        window.location.href = 'prices.html';
+        // Pass the locations as URL parameters
+        const url = `prices.html?origin=${encodeURIComponent(startPlace)}&destination=${encodeURIComponent(endPlace)}`;
+        window.location.href = url;
       } else {
         alert("Please select both a start and end location from the suggestions.");
       }
@@ -249,6 +247,4 @@
 </body>
 
 </html>
-
-    
 

@@ -94,14 +94,14 @@
 </head>
 
 <body>
-  <!-- Your existing header -->
   <header>
     <div class="logo"><img src="./assets/mainlogo.png" width="190px" alt="Sparro Logo"></div>
     <div class="logo1"><img src="./assets/textlogo.jpg" alt="Second Logo"></div>
     <nav>
       <ul id="nav-links">
         <li><a href="index.html">Home</a></li>
-        <!-- Login/Signup or Profile Icon will be here -->
+        <li><a href="marketplace.html">Marketplace</a></li>
+        <!-- Login/Signup or Profile Icon will be dynamically added here by script -->
       </ul>
     </nav>
   </header>
@@ -143,40 +143,17 @@
 
       <div class="vehicle-options-container">
         <div class="row g-4">
-          <!-- Pickup Option -->
-          <div class="col-md-4">
-            <div class="vehicle-card">
-              <span class="material-icons">local_shipping</span>
-              <h4>Pickup</h4>
-              <p class="capacity-info">Capacity: Up to 1.5 Tons</p>
-              <div class="vehicle-price" id="price-pickup">₹ ----</div>
-              <button class="btn btn-primary mt-3">Book Now</button>
-            </div>
-          </div>
-          <!-- Mini Truck Option -->
-          <div class="col-md-4">
-            <div class="vehicle-card">
-              <span class="material-icons">rv_hookup</span>
-              <h4>Mini Truck</h4>
-              <p class="capacity-info">Capacity: Up to 4 Tons</p>
-              <div class="vehicle-price" id="price-minitruck">₹ ----</div>
-              <button class="btn btn-primary mt-3">Book Now</button>
-            </div>
-          </div>
-          <!-- Large Truck Option -->
-          <div class="col-md-4">
-            <div class="vehicle-card">
-              <span class="material-icons">fire_truck</span>
-              <h4>Truck</h4>
-              <p class="capacity-info">Capacity: Up to 8 Tons</p>
-              <div class="vehicle-price" id="price-truck">₹ ----</div>
-              <button class="btn btn-primary mt-3">Book Now</button>
-            </div>
-          </div>
+          <div class="col-md-4"><div class="vehicle-card"><span class="material-icons">local_shipping</span><h4>Pickup</h4><p class="capacity-info">Capacity: Up to 1.5 Tons</p><div class="vehicle-price" id="price-pickup">₹ ----</div><button class="btn btn-primary mt-3">Book Now</button></div></div>
+          <div class="col-md-4"><div class="vehicle-card"><span class="material-icons">rv_hookup</span><h4>Mini Truck</h4><p class="capacity-info">Capacity: Up to 4 Tons</p><div class="vehicle-price" id="price-minitruck">₹ ----</div><button class="btn btn-primary mt-3">Book Now</button></div></div>
+          <div class="col-md-4"><div class="vehicle-card"><span class="material-icons">fire_truck</span><h4>Truck</h4><p class="capacity-info">Capacity: Up to 8 Tons</p><div class="vehicle-price" id="price-truck">₹ ----</div><button class="btn btn-primary mt-3">Book Now</button></div></div>
         </div>
       </div>
     </div>
   </main>
+  
+  <div class="lastsection">
+      <!-- Your footer content goes here -->
+  </div>
 
   <script>
     let calculatedDistance = 0;
@@ -189,9 +166,9 @@
         truck: { name: 'Truck', baseRatePerKm: 60 }
       },
       productTypeFee: {
-        general: 0, // No extra charge
-        fragile: 500, // Flat fee for fragile items
-        electronics: 350 // Flat fee for electronics
+        general: 0,
+        fragile: 500,
+        electronics: 350
       },
       weightSurcharge: {
         thresholdKg: 100,
@@ -210,23 +187,14 @@
         return;
       }
 
-      // Calculate price for each vehicle
       for (const vehicleType in pricingConfig.vehicles) {
         const vehicle = pricingConfig.vehicles[vehicleType];
-        
-        // 1. Base fare from distance
         let totalCost = vehicle.baseRatePerKm * calculatedDistance;
-
-        // 2. Add weight surcharge if applicable
         if (weight > pricingConfig.weightSurcharge.thresholdKg) {
           const extraWeight = weight - pricingConfig.weightSurcharge.thresholdKg;
           totalCost += extraWeight * pricingConfig.weightSurcharge.extraChargePerKg;
         }
-
-        // 3. Add product type handling fee
         totalCost += pricingConfig.productTypeFee[productType];
-
-        // 4. Update the UI
         document.getElementById(`price-${vehicleType}`).textContent = `₹ ${Math.round(totalCost).toLocaleString('en-IN')}`;
       }
     }
@@ -238,35 +206,32 @@
       const weightInput = document.getElementById('weight-input');
       const productTypeSelect = document.getElementById('product-type-select');
 
-      // Get locations from localStorage
-      const origin = localStorage.getItem('startLocation');
-      const destination = localStorage.getItem('endLocation');
+      // Read locations from the URL instead of localStorage
+      const urlParams = new URLSearchParams(window.location.search);
+      const origin = urlParams.get('origin');
+      const destination = urlParams.get('destination');
 
       if (!origin || !destination) {
         distanceResultEl.innerHTML = '<p class="text-danger">Locations not provided. Please go back and select your route.</p>';
         return;
       }
 
-      startLocationEl.textContent = origin.split(',')[0];
-      endLocationEl.textContent = destination.split(',')[0];
+      startLocationEl.textContent = decodeURIComponent(origin).split(',')[0];
+      endLocationEl.textContent = decodeURIComponent(destination).split(',')[0];
 
       try {
-        // Fetch REAL distance from our backend
         const response = await fetch('https://codecrew-sparro.onrender.com/api/calculate-distance', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ origin, destination })
+          body: JSON.stringify({ origin: decodeURIComponent(origin), destination: decodeURIComponent(destination) })
         });
         
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
+        if (!response.ok) throw new Error('Network response was not ok');
 
         const data = await response.json();
         calculatedDistance = parseFloat(data.distance.replace(/,/g, ''));
         distanceResultEl.textContent = `Total Distance: ${data.distance}`;
 
-        // Add event listeners AFTER distance is fetched
         weightInput.addEventListener('input', calculateAndDisplayPrices);
         productTypeSelect.addEventListener('change', calculateAndDisplayPrices);
         
