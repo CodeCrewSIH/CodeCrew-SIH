@@ -175,12 +175,36 @@
         const navLinksContainer = document.getElementById('nav-links');
         const token = localStorage.getItem('authToken');
         if (token) {
-            // Logic to show profile icon if logged in
+            try {
+                const payload = JSON.parse(atob(token.split('.')[1]));
+                const userInitial = payload.displayName ? payload.displayName.charAt(0).toUpperCase() : (payload.email ? payload.email.charAt(0).toUpperCase() : '?');
+                const userEmail = payload.email || 'User email not found';
+
+                navLinksContainer.innerHTML = `
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="marketplace.html">Marketplace</a></li>
+                    <li class="profile-dropdown">
+                        <div class="profile-icon" title="${userEmail}">${userInitial}</div>
+                        <div class="dropdown-content">
+                            <div class="user-email">${userEmail}</div>
+                            <button id="logout-btn">Logout</button>
+                        </div>
+                    </li>
+                `;
+                const logoutButton = document.getElementById('logout-btn');
+                logoutButton.addEventListener('click', () => {
+                    localStorage.removeItem('authToken');
+                    window.location.reload();
+                });
+            } catch (e) {
+                console.error('Failed to decode token:', e);
+                localStorage.removeItem('authToken');
+            }
         }
     });
   </script>
   
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCvk0X-YBkUZcacsVJsC0v1T5Hf54X0cWY" async defer></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCvk0X-YBkUZcacsVJsC0v1T5Hf54X0cWY async defer></script>
 </body>
 </html>
 
