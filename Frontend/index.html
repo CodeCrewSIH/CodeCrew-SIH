@@ -235,9 +235,11 @@
       <p> Up to 50% off your first 5 Sparro deliveries. T&Cs apply.</p>
 
       <form class="form" action="#">
+        <!-- IDs are added here for the script to find them -->
         <div><input type="text" id="start-location-input" placeholder="Enter Location"></div>
         <div><input type="text" id="end-location-input" placeholder="Enter Destination"></div>
       </form>
+      <!-- An ID is added here for the script to find it -->
       <button type="button" id="see-prices-btn" class="btn btn-dark">See Prices</button>
       <button type="button" class="btn btn-outline-secondary">Schedule For Later</button>
     </div>
@@ -389,7 +391,7 @@
   <!-- AI Chatbot HTML -->
   <button class="chatbot-toggler">
     <!-- Simple chat icon SVG -->
-    <svg xmlns="http://www.w.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#FFFFFF">
+    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#FFFFFF">
       <path d="M0 0h24v24H0V0z" fill="none" />
       <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12z" />
     </svg>
@@ -407,7 +409,7 @@
       <textarea placeholder="Enter a message..." required></textarea>
       <button>
         <!-- Send icon SVG -->
-        <svg xmlns="http://www.w.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#6c63ff">
+        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#6c63ff">
           <path d="M0 0h24v24H0V0z" fill="none" />
           <path
             d="M3.4 20.4l17.45-7.48c.81-.35.81-1.49 0-1.84L3.4 3.6c-.66-.29-1.39.2-1.39.91L2 9.12c0 .5.37.93.87.99L17 12 2.87 13.88c-.5.07-.87.5-.87 1l.01 4.61c0 .71.73 1.2 1.39.91z" />
@@ -434,6 +436,7 @@
 
           navLinksContainer.innerHTML = `
                     <li><a href="index.html">Home</a></li>
+                    <li><a href="marketplace.html">Marketplace</a></li>
                     <li class="profile-dropdown">
                         <div class="profile-icon" title="${userEmail}">${userInitial}</div>
                         <div class="dropdown-content">
@@ -456,7 +459,7 @@
     });
   </script>
 
-  <!-- This script handles the Google Maps Autocomplete functionality -->
+  <!-- This script handles the Google Maps Autocomplete and redirection -->
   <script>
     let startPlace, endPlace;
 
@@ -555,9 +558,10 @@
 
   <!-- Load the Google Maps API -->
   <script
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAqXbLYqoa6s7EXiDHgWN_6jRInRBcjJx8&libraries=places&callback=initAutocomplete"
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAqXbLYqoa6s7EXiDHgWN_6jRInRBcjJx8&callback=initMap"
     async defer></script>
 
 </body>
 
 </html>
+
