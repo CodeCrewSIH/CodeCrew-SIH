@@ -33,7 +33,7 @@ header {
 nav ul {
   list-style: none;
   display: flex;
-  gap: 24px;
+  gap: 18px;
 }
 
 nav a {
